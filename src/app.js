@@ -1,9 +1,10 @@
 const express = require('express');
-const dbConnect = require('./config/dbConnect');
 const dotenv = require('dotenv');
+const dbConnect = require('./config/dbConnect');
 const { errorHandler, notFound } = require("./middlewares/errorMiddleware");
 const { registerUser } = require("./controllers/users/usersCtrl");
 const userRoute = require('./routes/users/usersRoute');
+const incomeRoute = require('./routes/income/incomeRoutes');
 
 const app = express();
 // env
@@ -19,8 +20,11 @@ app.get('/', (req, res) => {
     res.json({msg:'Welcome Expenses tracker API'})
 })
 
-//routes
+//User routes
 app.use('/api/users', userRoute);
+
+//Income Routes
+app.use('/api/income', incomeRoute);
 
 //Error
 app.use(notFound);
