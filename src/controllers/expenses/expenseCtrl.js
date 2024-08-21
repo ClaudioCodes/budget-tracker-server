@@ -1,50 +1,50 @@
 const expressAsyncHandler = require('express-async-handler');
-const Income = require("../../model/Income");
+const Expense = require('../../model/expense');
 
 //Create
-const createIncCtrl = expressAsyncHandler(async (req, res) => {
+const createExpCtrl = expressAsyncHandler(async (req, res) => {
     const { title, amount, description, user } = req.body;
     try {
-        const income = await Income.create({
+        const expense = await Expense.create({
             title,
             amount,
             description,
             user,
         });
-        res.json(income);
+        res.json(expense);
     } catch (error) {
         res.json(error);
     }
 });
 
 //Fetch all income
-const fetchAllIncCtrl = expressAsyncHandler(async (req, res) => {
+const fetchAllExpCtrl = expressAsyncHandler(async (req, res) => {
     try {
-        const income = await Income.find();
-        res.json(income);
+        const expense = await Expense.find();
+        res.json(expense);
     } catch (error) {
         res.json(error);
     }
 });
 
 //Fetch single income
-const fetchIncDetailsCtrl = expressAsyncHandler(async (req, res) => {
+const fetchExpDetailsCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
-        const income = await Income.findById(id);
-        res.json(income);
+        const expense = await Expense.findById(id);
+        res.json(expense);
     } catch (error) {
         res.json(error);
     }
 });
 
 //Update
-const updateIncCtrl = expressAsyncHandler(async (req, res) => {
+const updateExpCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     const { title, amount, description } = req.body;
 
     try {
-        const income = await Income.findByIdAndUpdate(
+        const expense = await Expense.findByIdAndUpdate(
             id, 
             {
                 title, 
@@ -52,7 +52,7 @@ const updateIncCtrl = expressAsyncHandler(async (req, res) => {
                 amount
             },
         { new: true });
-        res.json(income);
+        res.json(expense);
     } catch (error) {
         res.json(error)
         
@@ -60,14 +60,20 @@ const updateIncCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 //Delete
-const deleteIncCtrl = expressAsyncHandler(async (req, res) => {
+const deleteExpCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
-        const income = await Income.findByIdAndDelete(id);
-        res.json(income);
+        const expense = await Expense.findByIdAndDelete(id);
+        res.json(expense);
     } catch (error) {
         res.json(error);
     }
 });
 
-module.exports = { createIncCtrl, fetchAllIncCtrl, fetchIncDetailsCtrl, updateIncCtrl, deleteIncCtrl };
+module.exports = {
+    createExpCtrl,
+    fetchAllExpCtrl,
+    fetchExpDetailsCtrl,
+    updateExpCtrl,
+    deleteExpCtrl 
+ };

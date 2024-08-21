@@ -2,9 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const dbConnect = require('./config/dbConnect');
 const { errorHandler, notFound } = require("./middlewares/errorMiddleware");
-const { registerUser } = require("./controllers/users/usersCtrl");
 const userRoute = require('./routes/users/usersRoute');
 const incomeRoute = require('./routes/income/incomeRoutes');
+const expenseRoute = require('./routes/expenses/expenseRoutes');
 
 const app = express();
 // env
@@ -26,6 +26,8 @@ app.use('/api/users', userRoute);
 //Income Routes
 app.use('/api/income', incomeRoute);
 
+//Expense Routes
+app.use("/api/expenses", expenseRoute);
 //Error
 app.use(notFound);
 app.use(errorHandler);
