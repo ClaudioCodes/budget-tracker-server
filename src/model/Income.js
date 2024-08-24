@@ -27,7 +27,13 @@ const incomeSchema = mongoose.Schema({
 },
 {
     timestamps: true,
- });
+    toJSON:{
+        virtuals: true,
+    },
+    toObject:{
+        viruals: true,
+    }
+});
 
  //Pagination
 incomeSchema.plugin(mongoosePaginate);
