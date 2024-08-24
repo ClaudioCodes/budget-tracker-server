@@ -6,13 +6,14 @@ const {
     updateExpCtrl,
     deleteExpCtrl, 
 } = require("../../controllers/expenses/expenseCtrl");
+const authMiddleWare = require('../../middlewares/authMiddleware');
 
 const expenseRoute = express.Router();
 
-expenseRoute.post('/', createExpCtrl);
-expenseRoute.get('/', fetchAllExpCtrl);
-expenseRoute.get('/:id', fetchExpDetailsCtrl);
-expenseRoute.put('/:id', updateExpCtrl);
-expenseRoute.delete('/:id', deleteExpCtrl);
+expenseRoute.post('/', authMiddleWare, createExpCtrl);
+expenseRoute.get('/', authMiddleWare,fetchAllExpCtrl);
+expenseRoute.get('/:id', authMiddleWare, fetchExpDetailsCtrl);
+expenseRoute.put('/:id', authMiddleWare, updateExpCtrl);
+expenseRoute.delete('/:id', authMiddleWare, deleteExpCtrl);
 
 module.exports = expenseRoute;
